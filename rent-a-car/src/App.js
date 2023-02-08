@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import Catalog from './pages/Catalog/Catalog';
 import Home from './pages/Home/Home';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
+import CarDetails from './pages/CarDetails/CarDetails';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path='/register-dealer' element={<SignUpDealer />} />
       <Route path='/register-renter' element={<SignUpRenter />} />
       <Route path='/catalog' element={<Catalog />} />
+      <Route path="/catalog/:carId" element={<CarDetails />} />
       </Routes>
      <Footer />
     </div>

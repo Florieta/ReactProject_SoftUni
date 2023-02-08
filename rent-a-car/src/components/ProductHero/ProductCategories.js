@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
-import Typography from '../Typography';
+import Typography from '../Typography/Typography';
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
   position: 'absolute',

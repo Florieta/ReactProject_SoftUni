@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Button from '../Button/Button';
-import Typography from '../Typography';
+import Typography from '../Typography/Typography';
 import ProductHeroLayout from './ProductHeroLayout';
 import { useNavigate } from 'react-router-dom';
 

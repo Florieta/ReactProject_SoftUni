@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Field, Form, FormSpy } from 'react-final-form';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import Typography from '../../components/Typography';
+import Typography from '../../components/Typography/Typography';
 import AppForm from '../../components/AppForm/AppForm';
 import { email, required } from '../../components/form/validation';
 import RFTextField from '../../components/form/RFTextField';

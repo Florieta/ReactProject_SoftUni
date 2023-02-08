@@ -5,7 +5,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Typography from './../../components/Typography'
+import Typography from '../../components/Typography/Typography'
 import withRoot from './../../withRoot';
 import FormButton from './../../components/form/FormButton';
 import AppForm from './../../components/AppForm/AppForm';

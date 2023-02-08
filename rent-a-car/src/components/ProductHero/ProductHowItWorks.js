@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Button from '../Button/Button';
-import Typography from '../Typography';
+import Typography from '../Typography/Typography';
 import book from '../../assets/book.png';
 import attention from '../../assets/attention.png';
 import offers from '../../assets/offers.png';
