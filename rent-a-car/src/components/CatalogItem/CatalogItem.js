@@ -46,7 +46,7 @@ const CatalogItem = ({ car }) => {
                 <Typography variant="h5" align="center">
                     {car.make}  {car.model} {car.makeYear}
                 </Typography>
-                <Typography variant="h7" align="center">
+                <Typography variant="body1" align="center">
                     Category: {car.categoryName}
                 </Typography>
                 <div className="rating">

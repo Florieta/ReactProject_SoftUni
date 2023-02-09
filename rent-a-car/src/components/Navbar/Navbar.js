@@ -21,6 +21,9 @@ function Navigation() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <Nav>
+            <Nav.Link href="/logout">Sign out</Nav.Link>
+          </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -10,14 +10,6 @@ import FormButton from '../../components/form/FormButton';
 import FormFeedback from '../../components/form/FormFeedback';
 import withRoot from './../../withRoot';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-     
-    </Typography>
-  );
-}
-
 function SignIn() {
   const [sent, setSent] = React.useState(false);
 

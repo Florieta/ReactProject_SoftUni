@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from "../Typography/Typography";
+import Rate from '../Rating/Rate';
 
 const CarCard = ({ car }) => {
 
@@ -23,8 +24,8 @@ return (
       <Typography gutterBottom variant="h6" component="div">
         {car.dailyRate}€ per day
       </Typography>
-      
-      <Typography gutterBottom variant="h7" component="div">
+      <Rate key={car.id} car={car} />
+      <Typography gutterBottom variant="body1" component="div">
         Category: {car.categoryName}
       </Typography>
       <Typography variant="body2" color="text.secondary">
@@ -42,7 +43,7 @@ return (
       </Typography>
     </CardContent>
     <CardActions>
-      <Button variant="contained" color="secondary" size="large" href={`/booking/${car.id}`}>
+      <Button variant="contained" color="secondary" size="large" component="a" href={`/booking/${car.id}`} sx={{ mt: 4 }}>
           Book
         </Button>
     </CardActions>
