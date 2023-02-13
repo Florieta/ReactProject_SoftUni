@@ -535,8 +535,8 @@ const CreateCar = () => {
                                 variant="standard"
                                 onChange={handleFileChange}
                             />
-                            <Button variant="contained"
-                                color="info"
+                            <Button variant="outlined"
+                                color="secondary"
                                 onClick={handleUploadClick}
                                 sx={{ mt: 3, ml: 1 }}>
                                 Upload

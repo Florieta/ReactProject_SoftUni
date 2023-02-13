@@ -15,6 +15,7 @@ import PrivateRoute from './components/Common/PrivateRoute.js';
 import EditProfileDealer from './pages/EditProfile/EditProfileDealer';
 import EditProfileRenter from './pages/EditProfile/EditProfileRenter';
 import CreateCar from './pages/Create/CreateCar';
+import MyCars from './pages/MyCars/MyCars';
 
 function App() {
   return (
@@ -44,6 +45,10 @@ function App() {
             <Route path="/create" element={(
                 <PrivateRoute>
                   <CreateCar />
+                </PrivateRoute>)} />
+                <Route path="/my-cars" element={(
+                <PrivateRoute>
+                  <MyCars />
                 </PrivateRoute>)} />
         </Routes>
         <Footer />

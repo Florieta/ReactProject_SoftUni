@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 import { AuthContext } from '../../context/AuthContext';
 import * as authService from '../../services/authService';
 import { useContext } from "react";
-
+import { Avatar } from '@mui/material';
+import profile_image from '../../assets/profile_image.jpg'
 
 function Navigation() {
   const navigate = useNavigate();
@@ -55,7 +56,8 @@ function Navigation() {
                   </NavDropdown.Item>
                 </NavDropdown></Nav>}
           </Nav>
-          {user.token && <Nav><Navbar.Text>Welcome, {user.user.userName}!</Navbar.Text>
+          {user.token && <Nav><Navbar.Brand>Welcome, {user.user.userName}!</Navbar.Brand>
+            <Avatar alt={user.user.userName} src={profile_image} />
             <Nav.Link href="/logout" onClick={onClick}>Sign out</Nav.Link>
           </Nav>
           }
