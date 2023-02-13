@@ -6,11 +6,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from "../Typography/Typography";
 import Rate from '../Rating/Rate';
 import FormButton from '../form/FormButton';
-import { Stack } from '@mui/system';
+import Button from '../Button/Button';
+import { Stack } from '@mui/material';
 import withRoot from '../../withRoot';
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 const CarCard = ({ car }) => {
-
+  const { user } = useAuthContext();
 
   return (
     <Card sx={{ maxWidth: 500, ml: 60 }}>
@@ -26,7 +28,7 @@ const CarCard = ({ car }) => {
         <Typography gutterBottom variant="h6" component="div">
           {car.dailyRate}€ per day
         </Typography>
-        <Rate key={car.id} car={car} />
+        {user.token ? (user.user.renterId ? <Rate key={car.id} car={car} /> : <Stack></Stack>) : <Stack></Stack>}
         <Typography gutterBottom variant="body1" component="div">
           Category: {car.categoryName}
         </Typography>
@@ -45,7 +47,8 @@ const CarCard = ({ car }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Stack direction="row" >
+      {user.token ? (user.user.renterId
+        ? <Stack direction="row">
           <FormButton
             sx={{ mt: 3, mb: 2 }}
             variant="contained"
@@ -56,6 +59,12 @@ const CarCard = ({ car }) => {
             Book
           </FormButton>
         </Stack>
+        : <Stack></Stack>)
+        : <Stack><Typography gutterBottom variant="body1" component="p">
+       You need to login in order to book! <></>
+       <Button variant="contained" color="secondary" size="small" href={`/login`}>
+        Login
+      </Button></Typography></Stack>}
       </CardActions>
     </Card>
 
@@ -64,13 +73,3 @@ const CarCard = ({ car }) => {
 
 export default withRoot(CarCard);
 
-/*
-{user.token ? (user.user.renterId ? <Rate key={car.id} car={car} /> : <p></p>) : <p></p>}
-{user.token ? (user.user.renterId
-        ? <Button variant="contained" color="error" size="large" href={`/booking/${car.id}`}>
-          Book
-        </Button>
-        : <p></p>)
-        : <div><p>You need to login first in order to book!</p><Button variant="contained" color="info" size="medium" href={`/login`}>
-          Login
-        </Button></div>}*/
