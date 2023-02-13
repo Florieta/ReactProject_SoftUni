@@ -10,23 +10,44 @@ import Home from './pages/Home/Home';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import CarDetails from './pages/CarDetails/CarDetails';
 import { AuthProvider } from './context/AuthContext.js';
+import MyProfile from './pages/MyProfile/MyProfile';
+import PrivateRoute from './components/Common/PrivateRoute.js';
+import EditProfileDealer from './pages/EditProfile/EditProfileDealer';
+import EditProfileRenter from './pages/EditProfile/EditProfileRenter';
+import CreateCar from './pages/Create/CreateCar';
 
 function App() {
   return (
     <AuthProvider>
-    <div className="App">
-      <Navigation/>
-      <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/login' element={<SignIn />} />
-      <Route path='/forgot-password' element={<ForgotPassword />} />
-      <Route path='/register-dealer' element={<SignUpDealer />} />
-      <Route path='/register-renter' element={<SignUpRenter />} />
-      <Route path='/catalog' element={<Catalog />} />
-      <Route path="/catalog/:carId" element={<CarDetails />} />
-      </Routes>
-     <Footer />
-    </div>
+      <div className="App">
+        <Navigation />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<SignIn />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/register-dealer' element={<SignUpDealer />} />
+          <Route path='/register-renter' element={<SignUpRenter />} />
+          <Route path='/catalog' element={<Catalog />} />
+          <Route path="/catalog/:carId" element={<CarDetails />} />
+          <Route path="/my-profile" element={(
+            <PrivateRoute>
+              <MyProfile />
+            </PrivateRoute>)} />
+          <Route path="/profile-dealer" element={(
+            <PrivateRoute>
+              <EditProfileDealer />
+            </PrivateRoute>)} />
+          <Route path="/profile-renter" element={(
+            <PrivateRoute>
+              <EditProfileRenter />
+            </PrivateRoute>)} />
+            <Route path="/create" element={(
+                <PrivateRoute>
+                  <CreateCar />
+                </PrivateRoute>)} />
+        </Routes>
+        <Footer />
+      </div>
     </AuthProvider>
   );
 }

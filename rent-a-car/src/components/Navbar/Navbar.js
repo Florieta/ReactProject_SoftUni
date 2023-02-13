@@ -39,7 +39,7 @@ function Navigation() {
             {user.token
               ? <div id="user"> {!user.user.renterId ? <Nav>
                 <NavDropdown title="Car" id="basic-nav-dropdown">
-                  <NavDropdown.Item to="/add-car" as={Link}>Add car</NavDropdown.Item>
+                  <NavDropdown.Item to="/create" as={Link}>Add car</NavDropdown.Item>
                   <NavDropdown.Item to="/my-cars" as={Link}>
                     My cars
                   </NavDropdown.Item>
