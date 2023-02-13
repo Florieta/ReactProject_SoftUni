@@ -3,11 +3,14 @@ import Button from '../Button/Button';
 import Typography from '../Typography/Typography';
 import ProductHeroLayout from './ProductHeroLayout';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
+import { useContext } from "react";
 
 const backgroundImage =
   'https://assets-eu-01.kc-usercontent.com/3b3d460e-c5ae-0195-6b86-3ac7fb9d52db/9ca26fe8-3db2-4e71-96f6-593f277014f3/Renault-Arkana-%288%29.jpg?width=800&fm=jpg&auto=format';
 
 export default function ProductHero() {
+  const { user} = useContext(AuthContext);
   const navigate = useNavigate();
   const onClick = (e) => {
     e.preventDefault();
@@ -39,7 +42,8 @@ export default function ProductHero() {
       >
         Enjoy secret offers up to -70% off the best cars every Sunday.
       </Typography>
-      <Button onClick={onClick}
+      {!user.token 
+      ? <Button onClick={onClick}
         color="secondary"
         variant="contained"
         size="large"
@@ -49,6 +53,7 @@ export default function ProductHero() {
       >
         Register
       </Button>
+      : <div></div>}
       <Typography variant="body2" color="inherit" sx={{ mt: 2 }}>
         Discover the experience
       </Typography>

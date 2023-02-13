@@ -9,9 +9,11 @@ import Catalog from './pages/Catalog/Catalog';
 import Home from './pages/Home/Home';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import CarDetails from './pages/CarDetails/CarDetails';
+import { AuthProvider } from './context/AuthContext.js';
 
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
       <Navigation/>
       <Routes>
@@ -25,8 +27,8 @@ function App() {
       </Routes>
      <Footer />
     </div>
+    </AuthProvider>
   );
 }
 
 export default App;
- /* <Route path='/' element={<Home />} />*/

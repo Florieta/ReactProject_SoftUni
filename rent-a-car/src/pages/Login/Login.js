@@ -1,36 +1,22 @@
 import * as React from 'react';
-import { Field, Form, FormSpy } from 'react-final-form';
+import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import Typography from '../../components/Typography/Typography';
 import AppForm from '../../components/AppForm/AppForm';
 import { email, required } from '../../components/form/validation';
-import RFTextField from '../../components/form/RFTextField';
 import FormButton from '../../components/form/FormButton';
-import FormFeedback from '../../components/form/FormFeedback';
 import withRoot from './../../withRoot';
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import * as authService from "../../services/authService";
+import { toast } from "react-toastify";
 
 function SignIn() {
-  const [sent, setSent] = React.useState(false);
-
-  const validate = (values) => {
-    const errors = required(['email', 'password'], values);
-
-    if (!errors.email) {
-      const emailError = email(values.email);
-      if (emailError) {
-        errors.email = emailError;
-      }
-    }
-
-    return errors;
-  };
-
-  const handleSubmit = () => {
-    setSent(true);
-  };
-
-  /*const { userLogin } = useContext(AuthContext);
+  const { userLogin } = useContext(AuthContext);
     const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -49,7 +35,7 @@ function SignIn() {
             .catch(() => {
                  navigate('/error');
             });
-  };*/
+  };
 
   return (
     <React.Fragment>
@@ -69,58 +55,40 @@ function SignIn() {
           </Link>
         </Typography>
       </React.Fragment>
-      <Form
-        onSubmit={handleSubmit}
-        subscription={{ submitting: true }}
-        validate={validate}
-      >
-        {({ handleSubmit: handleSubmit2, submitting }) => (
-          <Box component="form" onSubmit={handleSubmit2} noValidate sx={{ mt: 6 }}>
-            <Field
-              autoComplete="email"
-              autoFocus
-              component={RFTextField}
-              disabled={submitting || sent}
-              fullWidth
-              label="Email"
+      <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
               margin="normal"
-              name="email"
               required
-              size="large"
-            />
-            <Field
               fullWidth
-              size="large"
-              component={RFTextField}
-              disabled={submitting || sent}
+              id="email"
+              label="Username"
+              name="userName"
+              autoComplete="Username"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
               required
+              fullWidth
               name="password"
-              autoComplete="current-password"
               label="Password"
               type="password"
-              margin="normal"
+              id="password"
+              autoComplete="current-password"
             />
-            <FormSpy subscription={{ submitError: true }}>
-              {({ submitError }) =>
-                submitError ? (
-                  <FormFeedback error sx={{ mt: 2 }}>
-                    {submitError}
-                  </FormFeedback>
-                ) : null
-              }
-            </FormSpy>
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
             <FormButton
               sx={{ mt: 3, mb: 2 }}
-              disabled={submitting || sent}
               size="large"
               color="secondary"
               fullWidth
             >
-              {submitting || sent ? 'In progress…' : 'Sign In'}
+              Sign In
             </FormButton>
           </Box>
-        )}
-      </Form>
       <Typography align="center">
         <Link underline="always" href="/forgot-password/">
           Forgot password?
