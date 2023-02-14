@@ -16,6 +16,7 @@ import EditProfileDealer from './pages/EditProfile/EditProfileDealer';
 import EditProfileRenter from './pages/EditProfile/EditProfileRenter';
 import CreateCar from './pages/Create/CreateCar';
 import MyCars from './pages/MyCars/MyCars';
+import MyBookings from './pages/MyBookings/MyBookings';
 
 function App() {
   return (
@@ -42,14 +43,18 @@ function App() {
             <PrivateRoute>
               <EditProfileRenter />
             </PrivateRoute>)} />
-            <Route path="/create" element={(
-                <PrivateRoute>
-                  <CreateCar />
-                </PrivateRoute>)} />
-                <Route path="/my-cars" element={(
-                <PrivateRoute>
-                  <MyCars />
-                </PrivateRoute>)} />
+          <Route path="/create" element={(
+            <PrivateRoute>
+              <CreateCar />
+            </PrivateRoute>)} />
+          <Route path="/my-cars" element={(
+            <PrivateRoute>
+              <MyCars />
+            </PrivateRoute>)} />
+            <Route path="/my-bookings" element={(
+            <PrivateRoute>
+              <MyBookings />
+            </PrivateRoute>)} />
         </Routes>
         <Footer />
       </div>

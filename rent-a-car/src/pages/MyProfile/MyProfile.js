@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
+import { pink } from '@mui/material/colors';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import profile_image from '../../assets/profile_image.jpg'
 import { useAuthContext } from '../../hooks/useAuthContext';
@@ -36,7 +36,7 @@ const MyProfile = () => {
                         </Typography>
           <CardHeader
             avatar={
-              <Avatar sx={{ bgcolor: grey[450] }} aria-label="recipe">
+              <Avatar sx={{ bgcolor: pink[400] }} aria-label="recipe">
                 {user.user.firstName[0]}
               </Avatar>
             }
