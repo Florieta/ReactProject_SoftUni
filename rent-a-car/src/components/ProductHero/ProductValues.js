@@ -64,7 +64,7 @@ function ProductValues() {
               </Typography>
               <Typography variant="h5">
                 {
-                  'Choose a destination, take a car'
+                  'Choose a destination, take a car ' 
                 }
 
                 {'your Sundays will not be alike.'}

@@ -18,6 +18,7 @@ import CreateCar from './pages/Create/CreateCar';
 import MyCars from './pages/MyCars/MyCars';
 import MyBookings from './pages/MyBookings/MyBookings';
 import BookingForm from './pages/BookingForm/BookingForm';
+import EditCar from './pages/EditCar/EditCar';
 
 function App() {
   return (
@@ -52,6 +53,10 @@ function App() {
             <PrivateRoute>
               <MyCars />
             </PrivateRoute>)} />
+            <Route path="/edit/:carId" element={(
+                <PrivateRoute>
+                  <EditCar />
+                </PrivateRoute>)} />
             <Route path="/my-bookings" element={(
             <PrivateRoute>
               <MyBookings />

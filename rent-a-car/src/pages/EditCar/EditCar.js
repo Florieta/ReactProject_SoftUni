@@ -2,23 +2,21 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import * as carService from "../../services/carService.js"
-import { useAuthContext } from '../../hooks/useAuthContext';
-import { CircularProgress } from '@mui/material'
 import { toast } from "react-toastify";
-import Button from '@mui/material/Button';
-import FormButton from '../../components/form/FormButton.js';
-import Stack from '@mui/material/Stack';
+import { useState, useEffect } from 'react';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
-import axios from "axios";
-import withRoot from '../../withRoot.js';
-
+import Stack from '@mui/material/Stack';
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import * as carService from "../../services/carService.js"
+import { CircularProgress } from '@mui/material'
+import MenuItem from '@mui/material/MenuItem';
+import Box from '@mui/material/Box';
+import withRoot from '../../withRoot';
+import FormButton from '../../components/form/FormButton';
 
 const initialValues = {
     model: "",
@@ -30,68 +28,16 @@ const initialValues = {
     seats: "",
     fuel: "",
     transmission: "",
-    navigationSystem: true,
-    imageUrl: "",
+    navigationSystem: "",
     categoryId: "",
-    airCondition: true,
+    airCondition: "",
     dealerId: "",
 };
-const CreateCar = () => {
-    const [formValues, setFormValues] = useState(initialValues);
+const EditCar = () => {
+    const { carId } = useParams();
     const { user } = useAuthContext();
+    const [formValues, setFormValues] = useState(initialValues);
     const navigate = useNavigate();
-    const [file, setFile] = useState();
-    const [invalidField, setInvalidField] = useState({
-        make: false,
-        model: false,
-        regNumber: false,
-        makeYear: false,
-        seats: false,
-        doors: false,
-        dailyRate: false,
-    });
-
-    const constants = {
-        make: {
-            maxLenght: 15,
-            errorMessage: 'Make should be less then 15 characters',
-        },
-        model: {
-            minValue: 15,
-            errorMessage: 'Model should be less then 15 characters',
-        },
-        regNumber: {
-            maxLenght: 8,
-            errorMessage: 'Registration number should be less then 8 characters',
-        },
-        makeYear: {
-            maxLenght: 4,
-            errorMessage: 'Year should be non negative or 0'
-        },
-        seats: {
-            maxLenght: 2,
-            errorMessage: 'Seats should be non negative or 0'
-        },
-        doors: {
-            maxLenght: 1,
-            errorMessage: 'Doors should be non negative or 0'
-        },
-        dailyRate: {
-            maxLenght: 3,
-            errorMessage: 'Daily rate should be non negative or 0'
-        }
-    }
-
-
-    const handleFileChange = (e) => {
-        e.preventDefault();
-        setFile(e.target.files[0])
-    };
-
-    formValues.dealerId = user.user.dealerId;
-    if (file) {
-        formValues.imageUrl = file.name;
-    }
     const fuel = [
         {
             value: 'Diesel',
@@ -159,13 +105,23 @@ const CreateCar = () => {
             label: 'No',
         },
     ];
+    useEffect(() => {
+        carService.getById(carId)
+            .then((car) => {
+                setFormValues({ ...car });
+            }).catch(err => {
+                console.log(err);
+            });
+    }, [carId]);
+
 
     const getCategories = () => {
         return fetch('https://localhost:7016/api/Category')
             .then(res => res.json())
     }
 
-    const { isLoading, isError, data, error, isFetching } = useQuery({
+
+    const { isLoading, isError, data, error } = useQuery({
         queryKey: ['categories'],
         queryFn: getCategories,
     })
@@ -178,6 +134,8 @@ const CreateCar = () => {
         return <span>Error: {error.message}</span>
     }
 
+    formValues.dealerId = user.user.dealerId;
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -185,48 +143,8 @@ const CreateCar = () => {
             ...formValues,
             [name]: value,
         });
-
-        if (e.target.value.length > constants[e.target.name].maxLenght
-            || (e.target.name === 'makeYear' && e.target.value < 1)
-            || (e.target.name === 'seats' && e.target.value < 1)
-            || (e.target.name === 'doors' && e.target.value < 1)
-            || (e.target.name === 'dailyRate' && e.target.value < 1)) {
-            setInvalidField((state) => {
-                return {
-                    ...state,
-                    [e.target.name]: true
-                }
-            });
-
-        } else {
-            setInvalidField((state) => {
-                return {
-                    ...state,
-                    [e.target.name]: false
-                }
-            });
-        }
     };
 
-    const handleUploadClick = (e) => {
-        e.preventDefault();
-        if (!file) {
-            return;
-        }
-        console.log(file.name)
-        const url = 'https://localhost:7016/api/BlobStorage';
-        const formData = new FormData();
-        formData.append('imageFile', file);
-
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-        };
-        axios.post(url, formData, config).then(() => {
-            toast.success("The photo was uploaded successfully!", { autoClose: 1000 })
-        });
-    }
     const boolInputChange = (e) => {
         const { name, value } = e.target;
         if (value === false) {
@@ -241,57 +159,41 @@ const CreateCar = () => {
             });
         }
     };
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        carService.create({ ...formValues })
-            .then(() => {
-                toast.success("You successfully added a car!")
-                navigate('/my-cars');
-            }).catch((error) => console.log(error))
+        carService.Update({ ...formValues })
+
+        toast.success("You successfully updated a car!", { autoClose: 1000 })
+        navigate(`/my-cars`);
+
     };
 
     return (
         <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
             <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-                    <Typography variant="h6" align='center' gutterBottom>
-                        Add car
+                <React.Fragment>
+                    <Typography variant="h6" gutterBottom align='center'>
+                        Update your car
                     </Typography>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={3}>
+
                         <Grid item xs={12} sm={6}>
-                            <span
-                                hidden={
-                                    invalidField?.make
-                                        ? false
-                                        : true
-                                }
-                                style={{ color: 'red', 'padding-bottom': '6px', fontSize: '10px' }}>
-                                {constants.make.errorMessage}
-                            </span>
                             <TextField
+                                InputLabelProps={{ shrink: true }}
                                 required
                                 id="make"
                                 name="make"
                                 label="Make"
-                                value={formValues.make}
                                 fullWidth
+                                value={formValues.make}
                                 autoComplete="Make"
                                 variant="standard"
-                                error={invalidField?.make}
                                 onChange={handleInputChange}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <span
-                                hidden={
-                                    invalidField?.model
-                                        ? false
-                                        : true
-                                }
-                                style={{ color: 'red', 'padding-bottom': '6px', fontSize: '10px' }}>
-                                {constants.model.errorMessage}
-                            </span>
                             <TextField
+                                InputLabelProps={{ shrink: true }}
                                 required
                                 id="model"
                                 name="model"
@@ -301,121 +203,65 @@ const CreateCar = () => {
                                 autoComplete="Model"
                                 variant="standard"
                                 onChange={handleInputChange}
-                                error={invalidField?.model}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <span
-                                hidden={
-                                    invalidField?.makeYear
-                                        ? false
-                                        : true
-                                }
-                                style={{ color: 'red', 'padding-bottom': '6px', fontSize: '10px' }}>
-                                {constants.make.errorMessage}
-                            </span>
                             <TextField
+                                InputLabelProps={{ shrink: true }}
                                 required
                                 id="makeYear"
                                 name="makeYear"
-                                label="Year"
                                 value={formValues.makeYear}
+                                label="Year"
                                 fullWidth
+
                                 autoComplete="Year"
                                 variant="standard"
-                                error={invalidField?.makeYear}
                                 onChange={handleInputChange}
-
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <span
-                                hidden={
-                                    invalidField?.regNumber
-                                        ? false
-                                        : true
-                                }
-                                style={{ color: 'red', 'padding-bottom': '6px', fontSize: '10px' }}>
-                                {constants.regNumber.errorMessage}
-                            </span>
                             <TextField
+                                InputLabelProps={{ shrink: true }}
                                 id="regNumber"
                                 name="regNumber"
                                 label="Registration number"
-                                value={formValues.regNumber}
                                 fullWidth
+                                value={formValues.regNumber}
                                 autoComplete="Registration number"
                                 variant="standard"
                                 onChange={handleInputChange}
-                                error={invalidField?.regNumber}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <span
-                                hidden={
-                                    invalidField?.doors
-                                        ? false
-                                        : true
-                                }
-                                style={{ color: 'red', 'padding-bottom': '6px', fontSize: '10px' }}>
-                                {constants.regNumber.errorMessage}
-                            </span>
                             <TextField
+                                InputLabelProps={{ shrink: true }}
                                 required
                                 id="seats"
                                 name="seats"
                                 label="Seats"
                                 fullWidth
+                                value={formValues.seats}
                                 autoComplete="Seats"
                                 variant="standard"
-                                value={formValues.seats}
                                 onChange={handleInputChange}
-
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <span
-                                hidden={
-                                    invalidField?.doors
-                                        ? false
-                                        : true
-                                }
-                                style={{ color: 'red', 'padding-bottom': '6px', fontSize: '10px' }}>
-                                {constants.regNumber.errorMessage}
-                            </span>
                             <TextField
+                                InputLabelProps={{ shrink: true }}
                                 id="doors"
                                 name="doors"
                                 label="Doors"
-                                fullWidth
-                                variant="standard"
                                 value={formValues.doors}
-                                onChange={handleInputChange}
-
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <span
-                                hidden={
-                                    invalidField?.dailyRate
-                                        ? false
-                                        : true
-                                }
-                                style={{ color: 'red', 'padding-bottom': '6px', fontSize: '10px' }}>
-                                {constants.regNumber.errorMessage}
-                            </span>
-                            <TextField
-                                id="dailyRate"
-                                name="dailyRate"
-                                label="Daily Rate"
                                 fullWidth
                                 variant="standard"
-                                value={formValues.dailyRate}
                                 onChange={handleInputChange}
-
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+
+
+                        <Grid item xs={12}>
                             <Box
                                 component="form"
                                 sx={{
@@ -424,21 +270,36 @@ const CreateCar = () => {
                                 noValidate
                                 autoComplete="off"
                             >
+
                                 <TextField
+
+                                    required
+                                    id="dailyRate"
+                                    name="dailyRate"
+                                    label="Daily rate"
+                                    value={formValues.dailyRate}
+                                    fullWidth
+                                    autoComplete="Daily rate"
+                                    variant="standard"
+                                    onChange={handleInputChange}
+                                />
+                                <TextField
+
                                     id="outlined-select-currency"
                                     select
                                     label="Select"
-                                    name="categoryId"
                                     helperText="Please select category"
+                                    name="categoryId"
+                                    value={formValues.categoryId}
                                     onChange={handleInputChange}
-
                                 >
-                                    {data.map((option) => (
+                                    {data && data.map((option) => (
                                         <MenuItem key={option.id} value={option.id}>
                                             {option.categoryName}
                                         </MenuItem>
                                     ))}
                                 </TextField>
+
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
@@ -451,13 +312,14 @@ const CreateCar = () => {
                                 autoComplete="off"
                             >
                                 <TextField
+
                                     id="outlined-select-currency"
                                     select
-                                    label="Select"
+                                    value={formValues.fuel}
                                     name="fuel"
+                                    label="Select"
                                     helperText="Please select fuel"
                                     onChange={handleInputChange}
-
                                 >
                                     {fuel.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -466,13 +328,14 @@ const CreateCar = () => {
                                     ))}
                                 </TextField>
                                 <TextField
+
                                     id="outlined-select-currency"
                                     select
                                     label="Select"
                                     name="transmission"
+                                    value={formValues.transmission}
                                     helperText="Please select transmission"
                                     onChange={handleInputChange}
-
                                 >
                                     {transmission.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -492,13 +355,14 @@ const CreateCar = () => {
                                 autoComplete="off"
                             >
                                 <TextField
+
                                     id="outlined-select-currency"
                                     select
                                     label="Select"
-                                    name="navigationSystem"
+                                    value={formValues.navigationSystem}
                                     helperText="Please select navigation system"
-                                    onChange={boolInputChange}
-
+                                    name="navigationSystem"
+                                    onFocus={boolInputChange}
                                 >
                                     {navigationSystem.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -507,13 +371,14 @@ const CreateCar = () => {
                                     ))}
                                 </TextField>
                                 <TextField
+
                                     id="outlined-select-currency"
                                     select
                                     label="Select"
                                     name="airCondition"
+                                    value={formValues.airCondition}
                                     helperText="Please select air condition"
-                                    onChange={boolInputChange}
-
+                                    onFocus={boolInputChange}
                                 >
                                     {airCondition.map((option) => (
                                         <MenuItem key={option.value} value={option.value}>
@@ -524,39 +389,20 @@ const CreateCar = () => {
                             </Box>
                         </Grid>
 
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                id="imageUrl"
-                                label="Image"
-                                fullWidth
-                                type='file'
-                                variant="standard"
-                                onChange={handleFileChange}
-                            />
-                            <Button variant="outlined"
-                                color="secondary"
-                                onClick={handleUploadClick}
-                                sx={{ mt: 3, ml: 1 }}>
-                                Upload
-                            </Button>
-                        </Grid>
-                        </Grid>
-                        <Stack direction="row">
-                            <FormButton
-                                sx={{ mt: 3, mb: 2 }}
-                                size="large"
-                                color="secondary"
-                                fullWidth
-                                onClick={handleSubmit}
-                            >
-                                Submit
-                            </FormButton>
-                        </Stack>
-                    
+                    </Grid>
+                    <Stack direction="row">
+                        <FormButton
+                            sx={{ mt: 3, mb: 2 }}
+                            size="large"
+                            color="secondary"
+                            fullWidth
+                            onClick={handleSubmit}>
+                            Submit</FormButton>
+                    </Stack>
+                </React.Fragment>
             </Paper>
         </Container>
-    );
+    )
 }
 
-export default withRoot(CreateCar);
+export default withRoot(EditCar);

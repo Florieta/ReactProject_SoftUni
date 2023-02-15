@@ -13,6 +13,8 @@ import Paper from '@mui/material/Paper';
 import { useMutation } from "@tanstack/react-query";
 import withRoot from '../../withRoot';
 import FormButton from '../../components/form/FormButton';
+import CloseIcon from '@mui/icons-material/Close';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 
 const MyCars = () => {
     const { user } = useAuthContext();
@@ -41,7 +43,6 @@ const MyCars = () => {
 
     return (
 <TableContainer component={Paper}>
-{(isLoading || isFetching) && <CircularProgress />}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -60,6 +61,7 @@ const MyCars = () => {
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
+          {(isLoading || isFetching) && <CircularProgress />}
         </TableHead>
         <TableBody>
       {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
@@ -82,7 +84,7 @@ const MyCars = () => {
               <TableCell align="right">{car.navigationSystem ? 'Yes' : 'No'}</TableCell>
               <TableCell align="right">{car.seats}</TableCell>
               <TableCell align="right">{car.doors}</TableCell>
-              <TableCell align="right">{car.isAvailable ? 'Yes' : 'No'}</TableCell>
+              <TableCell align="right">{car.isAvailable === true ?  <DoneOutlineIcon /> :  <CloseIcon/>}</TableCell>
               <TableCell><FormButton variant="outlined" size="small" color="secondary" href={`/edit/${car.id}`}>Edit</FormButton></TableCell>
               <TableCell><FormButton color="secondary" size="small" onClick={() => window.confirm("Are you sure you want to delete the car?")
                && carDelete.mutate(car.id)}>Delete</FormButton></TableCell>

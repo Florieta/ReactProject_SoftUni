@@ -36,16 +36,15 @@ const BookingList = () => {
     onError: () => toast.error('Something went wrong!'),
     refetchOnWindowFocus: false,
   })
-console.log(bookings)
+
   const bookingDelete = useMutation((id) => axios.delete(`https://localhost:7016/api/Order/${id}`), {
     onSuccess: () => refetch() && toast.success('The booking was successfully cancelled!', {autoClose: 1000}),
     onError: () => toast.error('Something went wrong!', {autoClose: 1000})
   }
   );
-console.log(bookings)
+
   return (
     <TableContainer component={Paper} sx={{}} >
-      {(isLoading || isFetching) && <CircularProgress />}
       <Table sx={{ minWidth: 650}} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -62,6 +61,7 @@ console.log(bookings)
             <TableCell align="right">Active</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
+          {(isLoading || isFetching) && <CircularProgress />}
         </TableHead>
         <TableBody>
           {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
