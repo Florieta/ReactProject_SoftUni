@@ -17,6 +17,7 @@ import EditProfileRenter from './pages/EditProfile/EditProfileRenter';
 import CreateCar from './pages/Create/CreateCar';
 import MyCars from './pages/MyCars/MyCars';
 import MyBookings from './pages/MyBookings/MyBookings';
+import BookingForm from './pages/BookingForm/BookingForm';
 
 function App() {
   return (
@@ -54,6 +55,10 @@ function App() {
             <Route path="/my-bookings" element={(
             <PrivateRoute>
               <MyBookings />
+            </PrivateRoute>)} />
+            <Route path="/booking/:carId" element={(
+            <PrivateRoute>
+              <BookingForm />
             </PrivateRoute>)} />
         </Routes>
         <Footer />
