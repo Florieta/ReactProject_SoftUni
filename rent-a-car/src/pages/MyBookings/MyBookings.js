@@ -3,9 +3,9 @@ import BookingList from '../../components/BookingList/BookingList';
 const MyBookings = () => {
      
     return (
-        <section id="my-booking-page" className="my-booking">
+        <div id="my-booking-page" className="my-booking">
             <BookingList  />
-        </section>
+        </div>
     );
 }
 

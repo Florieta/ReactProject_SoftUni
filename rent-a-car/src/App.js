@@ -23,7 +23,7 @@ import EditCar from './pages/EditCar/EditCar';
 function App() {
   return (
     <AuthProvider>
-      <div className="App">
+      <>
         <Navigation />
         <Routes>
           <Route path='/' element={<Home />} />
@@ -67,7 +67,7 @@ function App() {
             </PrivateRoute>)} />
         </Routes>
         <Footer />
-      </div>
+      </>
     </AuthProvider>
   );
 }

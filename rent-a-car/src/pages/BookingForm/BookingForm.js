@@ -31,7 +31,7 @@ const initialValues = {
 
 const CreateBooking = () => {
     const [formValues, setFormValues] = useState(initialValues);
-const [totalAmount, setFieldValue] = useState(0);
+    const [totalAmount, setFieldValue] = useState(0);
     const { user } = useAuthContext();
     const { carId } = useParams();
     const navigate = useNavigate();
@@ -109,120 +109,122 @@ const [totalAmount, setFieldValue] = useState(0);
         event.preventDefault();
         bookingService.Create({ ...formValues })
             .then(() => {
-                toast.success("You successfully booked a car!", {autoClose: 1000})
+                toast.success("You successfully booked a car!", { autoClose: 1000 })
                 navigate(`/my-bookings`);
             })
             .catch(() => {
-                toast.error("Something went wrong!", {autoClose: 1000})
+                toast.error("Something went wrong!", { autoClose: 1000 })
                 navigate('/error');
             });
     };
 
     return (
-            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-                <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-                    <React.Fragment>
-                        <Typography variant="h6" gutterBottom align='center'>
-                            Book a car
-                        </Typography>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                InputLabelProps={{shrink: true }}
-                                    required
-                                    id="pickUpDateAndTime"
-                                    name="pickUpDateAndTime"
-                                    label="Pick up date and time"
-                                    type="datetime-local"
-                                    value={formValues.pickUpDateAndTime}
-                                    fullWidth
-                                    autoComplete="Pick up date and time"
-                                    variant="standard"
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                 InputLabelProps={{shrink: true }}
-                                    required
-                                    id="dropOffDateAndTime"
-                                    name="dropOffDateAndTime"
-                                    label="Drop off date and time"
-                                    type="datetime-local"
-                                    value={formValues.dropOffDateAndTime}
-                                    fullWidth
-                                    autoComplete="Drop off date and time"
-                                    variant="standard"
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    id="Duration"
-                                    name="duration"
-                                    label="Duration"
-                                    value={formValues.duration}
-                                    fullWidth
-                                    autoComplete="Duration"
-                                    variant="standard"
-                                    onChange={handleDurationChange}
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    id="totalAmount"
-                                    name="totalAmount"
-                                    label="Total Amount(€)"
-                                    value={formValues.totalAmount}
-                                    fullWidth
-                                    autoComplete="Total Amount"
-                                    variant="standard"
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-                           
-                          
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="outlined-select-currency"
-                                    select
-                                    name="pickUpLocationId"
-                                    label="Select"
+        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+                <React.Fragment>
+                    <Typography variant="h6" gutterBottom align='center'>
+                        Book a car
+                    </Typography>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                required
+                                id="pickUpDateAndTime"
+                                name="pickUpDateAndTime"
+                                label="Pick up date and time"
+                                type="datetime-local"
+                                value={formValues.pickUpDateAndTime}
+                                fullWidth
+                                autoComplete="Pick up date and time"
+                                variant="standard"
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                required
+                                id="dropOffDateAndTime"
+                                name="dropOffDateAndTime"
+                                label="Drop off date and time"
+                                type="datetime-local"
+                                value={formValues.dropOffDateAndTime}
+                                fullWidth
+                                autoComplete="Drop off date and time"
+                                variant="standard"
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="duration"
+                                name="duration"
+                                label="Duration"
+                                value={formValues.duration}
+                                fullWidth
+                                autoComplete="Duration"
+                                variant="standard"
+                                onChange={handleDurationChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                id="totalAmount"
+                                name="totalAmount"
+                                label="Total Amount(€)"
+                                value={formValues.totalAmount}
+                                fullWidth
+                                autoComplete="Total Amount"
+                                variant="standard"
+                                onChange={handleInputChange}
+                            />
+                        </Grid>
 
-                                    helperText="Please select pick up location"
-                                    onChange={handleInputChange}
-                                >
-                                    {data.map((option) => (
-                                        <MenuItem key={option.id} value={option.id}>
-                                            {option.locationName}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    id="outlined-select-currency"
-                                    select
-                                    name="dropOffLocationId"
-                                    label="Select"
-                                    helperText="Please select drop off location"
-                                    onChange={handleInputChange}
-                                >
-                                    {data.map((option) => (
-                                        <MenuItem key={option.id} value={option.id}>
-                                            {option.locationName}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item xs={12}>
+
+                        <Grid item xs={12} sm={6}>
                             <TextField
                                 id="outlined-select-currency"
                                 select
+                                name="pickUpLocationId"
                                 label="Select"
-                                value={formValues.payment}
+                                value={formValues.pickUpLocationId}
+                                helperText="Please select pick up location"
+                                onChange={handleInputChange}
+                            >
+                                {data.map((option) => (
+                                    <MenuItem key={option.id} value={option.id}>
+                                        {option.locationName}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                id="outlined-select-currency"
+                                select
+                                name="dropOffLocationId"
+                                label="Select"
+                                helperText="Please select drop off location"
+                                value={formValues.dropOffLocationId}
+                                onChange={handleInputChange}
+                            >
+                                {data.map((option) => (
+                                    <MenuItem key={option.id} value={option.id}>
+                                        {option.locationName}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                id="outlined-select-currency"
+                                select
+                                name="paymentType"
+                                label="Select"
+                                value={formValues.paymentType}
                                 helperText="Please select payment"
                                 onChange={handleInputChange}
                             >
@@ -232,21 +234,21 @@ const [totalAmount, setFieldValue] = useState(0);
                                     </MenuItem>
                                 ))}
                             </TextField>
-                            </Grid>
                         </Grid>
-                        <Stack direction="row">
+                    </Grid>
+                    <Stack direction="row">
                         <FormButton
-                                sx={{ mt: 3, mb: 2 }}
-                                size="large"
-                                color="secondary"
-                                fullWidth 
-                                onClick={handleSubmit}>
-                                    Submit
-                                    </FormButton>
-                        </Stack>
-                    </React.Fragment>
-                </Paper>
-            </Container>
+                            sx={{ mt: 3, mb: 2 }}
+                            size="large"
+                            color="secondary"
+                            fullWidth
+                            onClick={handleSubmit}>
+                            Submit
+                        </FormButton>
+                    </Stack>
+                </React.Fragment>
+            </Paper>
+        </Container>
     )
 }
 

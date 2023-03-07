@@ -44,7 +44,9 @@ const BookingList = () => {
   );
 
   return (
+    
     <TableContainer component={Paper} sx={{}} >
+      {(isLoading || isFetching) && <CircularProgress />}
       <Table sx={{ minWidth: 650}} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -61,10 +63,9 @@ const BookingList = () => {
             <TableCell align="right">Active</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
-          {(isLoading || isFetching) && <CircularProgress />}
         </TableHead>
         <TableBody>
-          {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
+        {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
           {!isLoading && !isFetching && !isError && bookings && bookings.length > 0 &&
             bookings.map((booking) => (
               <TableRow
@@ -97,3 +98,4 @@ const BookingList = () => {
 };
 
 export default withRoot(BookingList);
+
