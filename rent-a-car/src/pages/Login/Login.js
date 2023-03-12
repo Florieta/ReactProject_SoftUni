@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -6,14 +9,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '../../components/Typography/Typography';
 import AppForm from '../../components/AppForm/AppForm';
-import { email, required } from '../../components/form/validation';
 import FormButton from '../../components/form/FormButton';
 import withRoot from './../../withRoot';
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import * as authService from "../../services/authService";
-import { toast } from "react-toastify";
 
 function SignIn() {
   const { userLogin } = useContext(AuthContext);
@@ -60,7 +59,7 @@ function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
+              id="userName"
               label="Username"
               name="userName"
               autoComplete="Username"
@@ -90,7 +89,7 @@ function SignIn() {
             </FormButton>
           </Box>
       <Typography align="center">
-        <Link underline="always" href="/forgot-password/">
+        <Link underline="always" href="/forgot-password">
           Forgot password?
         </Link>
       </Typography>
