@@ -43,6 +43,7 @@ const MyCars = () => {
 
     return (
 <TableContainer component={Paper}>
+{(isLoading || isFetching) && <CircularProgress />}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -61,7 +62,6 @@ const MyCars = () => {
             <TableCell align="right"></TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
-          {(isLoading || isFetching) && <CircularProgress />}
         </TableHead>
         <TableBody>
       {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
