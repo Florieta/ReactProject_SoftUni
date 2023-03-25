@@ -140,7 +140,8 @@ const CreateCar = () => {
         queryKey: ['categories'],
         queryFn: getCategories,
     })
-
+    console.log(data)
+console.log(formValues.categoryId)
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -405,7 +406,7 @@ const CreateCar = () => {
                                 name="categoryId"
                                 helperText="Please select category"
                                 onChange={handleInputChange}
-                                value={formValues.categoryId}
+                                value={formValues.categoryId ?? ""}
                             >
                                 {(isLoading || isFetching) && <CircularProgress />}
                                 {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
