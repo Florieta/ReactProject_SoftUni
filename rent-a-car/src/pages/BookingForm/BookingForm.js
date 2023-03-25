@@ -35,6 +35,9 @@ const CreateBooking = () => {
     const { user } = useAuthContext();
     const { carId } = useParams();
     const navigate = useNavigate();
+    const [formErrors, setFormErros] = useState({
+        duration: '',
+    });
 
     const payment = [
         {
@@ -85,8 +88,8 @@ const CreateBooking = () => {
         return <span>Error: {error.message}</span>
     }
 
-
     formValues.renterId = user.user.renterId;
+
     const handleDurationChange = (e) => {
         e.preventDefault();
         formValues.duration = e.target.value;
@@ -94,6 +97,17 @@ const CreateBooking = () => {
         formValues.totalAmount = formValues.duration * (car.dailyRate ? car.dailyRate : 0);
         setFieldValue(formValues.totalAmount);
     }
+
+    const formValidate = (e) => {
+        const value = e.target.value;
+        const errors = {};
+        if (e.target.name === 'duration' && (value < 1)) {
+            errors.duration = 'Duration should be bigger than 0!';
+        }
+
+        setFormErros(errors);
+    }
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
@@ -157,6 +171,15 @@ const CreateBooking = () => {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                            <span
+                                hidden={
+                                    formErrors?.duration
+                                        ? false
+                                        : true
+                                }
+                                style={{ color: 'red', fontSize: '10px' }}>
+                                {formErrors.duration}
+                            </span>
                             <TextField
                                 required
                                 id="duration"
@@ -167,6 +190,7 @@ const CreateBooking = () => {
                                 autoComplete="Duration"
                                 variant="standard"
                                 onChange={handleDurationChange}
+                                onBlur={formValidate}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -175,7 +199,7 @@ const CreateBooking = () => {
                                 id="totalAmount"
                                 name="totalAmount"
                                 label="Total Amount(€)"
-                                value={formValues.totalAmount}
+                                value={totalAmount}
                                 fullWidth
                                 autoComplete="Total Amount"
                                 variant="standard"
