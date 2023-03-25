@@ -38,6 +38,16 @@ const EditCar = () => {
     const { user } = useAuthContext();
     const [formValues, setFormValues] = useState(initialValues);
     const navigate = useNavigate();
+    const [formErrors, setFormErros] = useState({
+        make: '',
+        model: '',
+        regNumber: '',
+        makeYear: '',
+        seats: '',
+        doors: '',
+        dailyRate: '',
+    });
+
     const fuel = [
         {
             value: 'Diesel',
@@ -159,13 +169,42 @@ const EditCar = () => {
             });
         }
     };
+
+    const formValidate = (e) => {
+        const value = e.target.value;
+        const errors = {};
+        if (e.target.name === 'make' && (value.length < 2 || value.length > 20)) {
+            errors.make = 'Make should be between 2 and 20 characters!';
+        }
+
+        if (e.target.name === 'model' && (value.length < 2 || value.length > 20)) {
+            errors.model = 'Model should be between 2 and 20 characters!';
+        }
+        if (e.target.name === 'regNumber' && (value.length < 2 || value.length > 8)) {
+            errors.regNumber = 'Registration number should be between 2 and 8 characters!';
+        }
+        if (e.target.name === 'makeYear' && (value < 2000 || value > 2023)) {
+            errors.makeYear = 'Year of make should be between 2000 and 2023!';
+        }
+        if (e.target.name === 'seats' && (value < 2 || value > 10)) {
+            errors.seats = 'Seats should be between 2 and 10!';
+        }
+        if (e.target.name === 'doors' && (value < 2 || value > 5)) {
+            errors.doors = 'Doors should be between 2 and 5!';
+        }
+        if (e.target.name === 'dailyRate' && (value < 1 || value > 1000)) {
+            errors.firstName = 'Daily rate should be between 1 and 1000!';
+        }
+        setFormErros(errors);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         carService.Update({ ...formValues })
-
+        .then(() => {
         toast.success("You successfully updated a car!", { autoClose: 1000 })
-        navigate(`/my-cars`);
-
+        navigate(`/my-cars`)
+    }).catch((error) => console.log(error))
     };
 
     return (
@@ -176,8 +215,16 @@ const EditCar = () => {
                         Update your car
                     </Typography>
                     <Grid container spacing={3}>
-
                         <Grid item xs={12} sm={6}>
+                        <span
+                            hidden={
+                                formErrors?.make
+                                    ? false
+                                    : true
+                            }
+                            style={{ color: 'red', fontSize: '10px' }}>
+                            {formErrors.make}
+                        </span>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
                                 required
@@ -189,9 +236,19 @@ const EditCar = () => {
                                 autoComplete="Make"
                                 variant="standard"
                                 onChange={handleInputChange}
+                                onBlur={formValidate}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                        <span
+                            hidden={
+                                formErrors?.model
+                                    ? false
+                                    : true
+                            }
+                            style={{ color: 'red', fontSize: '10px' }}>
+                            {formErrors.model}
+                        </span>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
                                 required
@@ -203,9 +260,19 @@ const EditCar = () => {
                                 autoComplete="Model"
                                 variant="standard"
                                 onChange={handleInputChange}
+                                onBlur={formValidate}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                        <span
+                            hidden={
+                                formErrors.makeYear
+                                    ? false
+                                    : true
+                            }
+                            style={{ color: 'red', fontSize: '10px' }}>
+                            {formErrors.makeYear}
+                        </span>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
                                 required
@@ -214,13 +281,22 @@ const EditCar = () => {
                                 value={formValues.makeYear}
                                 label="Year"
                                 fullWidth
-
                                 autoComplete="Year"
                                 variant="standard"
                                 onChange={handleInputChange}
+                                onBlur={formValidate}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                        <span
+                            hidden={
+                                formErrors?.regNumber
+                                    ? false
+                                    : true
+                            }
+                            style={{ color: 'red', fontSize: '10px' }}>
+                            {formErrors.regNumber}
+                        </span>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
                                 id="regNumber"
@@ -231,9 +307,19 @@ const EditCar = () => {
                                 autoComplete="Registration number"
                                 variant="standard"
                                 onChange={handleInputChange}
+                                onBlur={formValidate}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                        <span
+                            hidden={
+                                formErrors?.seats
+                                    ? false
+                                    : true
+                            }
+                            style={{ color: 'red', fontSize: '10px' }}>
+                            {formErrors.seats}
+                        </span>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
                                 required
@@ -245,9 +331,19 @@ const EditCar = () => {
                                 autoComplete="Seats"
                                 variant="standard"
                                 onChange={handleInputChange}
+                                onBlur={formValidate}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
+                        <span
+                            hidden={
+                                formErrors?.doors
+                                    ? false
+                                    : true
+                            }
+                            style={{ color: 'red', fontSize: '10px' }}>
+                            {formErrors.doors}
+                        </span>
                             <TextField
                                 InputLabelProps={{ shrink: true }}
                                 id="doors"
@@ -257,6 +353,7 @@ const EditCar = () => {
                                 fullWidth
                                 variant="standard"
                                 onChange={handleInputChange}
+                                onBlur={formValidate}
                             />
                         </Grid>
 

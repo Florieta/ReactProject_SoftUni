@@ -140,8 +140,7 @@ const CreateCar = () => {
         queryKey: ['categories'],
         queryFn: getCategories,
     })
-    console.log(data)
-console.log(formValues.categoryId)
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
