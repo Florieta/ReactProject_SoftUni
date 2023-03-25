@@ -231,7 +231,8 @@ function SignUpRenter() {
                   name="address"
                   autoComplete="Address"
                   onBlur={formValidate}
-                /> <span
+                /> 
+                <span
                 hidden={
                   formErrors?.address
                     ? false 
