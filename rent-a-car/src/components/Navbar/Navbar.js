@@ -1,15 +1,15 @@
+import { useContext } from "react";
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { AuthContext } from '../../context/AuthContext';
 import * as authService from '../../services/authService';
-import { useContext } from "react";
+import { pink } from '@mui/material/colors';
 import { Avatar } from '@mui/material';
-import profile_image from '../../assets/profile_image.jpg'
 
 function Navigation() {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ function Navigation() {
                 </NavDropdown></Nav>}
           </Nav>
           {user.token && <Nav><Navbar.Brand>Welcome, {user.user.userName}!</Navbar.Brand>
-            <Avatar alt={user.user.userName} src={profile_image} />
+            <Avatar sx={{ bgcolor: pink[500] }}>{user.user.userName[0]}</Avatar>
             <Nav.Link href="/logout" onClick={onClick}>Sign out</Nav.Link>
           </Nav>
           }
@@ -69,3 +69,6 @@ function Navigation() {
 }
 
 export default Navigation;
+
+/* <Avatar alt={user.user.userName} src={profile_image} />
+import profile_image from '../../assets/profile_image.jpg'*/
