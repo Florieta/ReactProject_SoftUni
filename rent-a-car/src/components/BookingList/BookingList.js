@@ -1,3 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
+import { toast } from 'react-toastify'
+import { useMutation } from "@tanstack/react-query";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -5,16 +8,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Alert, CircularProgress } from '@mui/material';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
-import { Alert, CircularProgress } from '@mui/material'
-import { useQuery } from '@tanstack/react-query'
-import { toast } from 'react-toastify'
 import { useAuthContext } from '../../hooks/useAuthContext';
-import { useMutation } from "@tanstack/react-query";
 import FormButton from '../form/FormButton';
 import withRoot from '../../withRoot';
-import CloseIcon from '@mui/icons-material/Close';
-import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 
 const BookingList = () => {
 
@@ -35,19 +35,18 @@ const BookingList = () => {
     retry: false,
     onError: () => toast.error('Something went wrong!'),
     refetchOnWindowFocus: false,
-  })
+  });
 
   const bookingDelete = useMutation((id) => axios.delete(`https://localhost:7016/api/Order/${id}`), {
-    onSuccess: () => refetch() && toast.success('The booking was successfully cancelled!', {autoClose: 1000}),
-    onError: () => toast.error('Something went wrong!', {autoClose: 1000})
-  }
-  );
+    onSuccess: () => refetch() && toast.success('The booking was successfully cancelled!', { autoClose: 1000 }),
+    onError: () => toast.error('Something went wrong!', { autoClose: 1000 })
+  });
 
   return (
-    
+
     <TableContainer component={Paper} sx={{}} >
       {(isLoading || isFetching) && <CircularProgress />}
-      <Table sx={{ minWidth: 650}} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Make & Model</TableCell>
@@ -65,7 +64,7 @@ const BookingList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-        {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
+          {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
           {!isLoading && !isFetching && !isError && bookings && bookings.length > 0 &&
             bookings.map((booking) => (
               <TableRow
@@ -84,11 +83,11 @@ const BookingList = () => {
                 <TableCell align="right">{booking.insurance ? 'Yes' : 'No'}</TableCell>
                 <TableCell align="right">{booking.paymentType}</TableCell>
                 <TableCell align="right">{booking.totalAmount}</TableCell>
-                <TableCell align="right">{booking.isActive === true ?  <DoneOutlineIcon /> :  <CloseIcon/>}</TableCell>
+                <TableCell align="right">{booking.isActive === true ? <DoneOutlineIcon /> : <CloseIcon />}</TableCell>
                 {booking.isActive
-                 ? <TableCell><FormButton color="secondary" size="small" onClick={() => window.confirm("Are you sure you want to cancel your reservation?")
-                  && bookingDelete.mutate(booking.id)}>Cancel</FormButton></TableCell>
-                 : <TableCell></TableCell>} 
+                  ? <TableCell><FormButton color="secondary" size="small" onClick={() => window.confirm("Are you sure you want to cancel your reservation?")
+                    && bookingDelete.mutate(booking.id)}>Cancel</FormButton></TableCell>
+                  : <TableCell></TableCell>}
               </TableRow>
             ))}
         </TableBody>
