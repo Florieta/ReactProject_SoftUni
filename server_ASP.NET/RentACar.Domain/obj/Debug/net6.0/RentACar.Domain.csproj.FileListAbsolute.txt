@@ -1,0 +1,12 @@
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\bin\Debug\net6.0\RentACar.Domain.deps.json
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\bin\Debug\net6.0\RentACar.Domain.dll
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\bin\Debug\net6.0\RentACar.Domain.pdb
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\RentACar.Domain.csproj.AssemblyReference.cache
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\RentACar.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\RentACar.Domain.AssemblyInfoInputs.cache
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\RentACar.Domain.AssemblyInfo.cs
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\RentACar.Domain.csproj.CoreCompileInputs.cache
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\RentACar.Domain.dll
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\refint\RentACar.Domain.dll
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\RentACar.Domain.pdb
+D:\SoftUni\source\AmdarisProject\RentACar\RentACar\RentACar.Domain\obj\Debug\net6.0\ref\RentACar.Domain.dll
