@@ -1,15 +1,15 @@
 # Rent A Car - React Project
 
 <p align="center">	
-	<a href="https://react.dev/"><img src="https://en.wikipedia.org/wiki/React_%28JavaScript_library%29#/media/File:React-icon.svg" alt="React"   width="300" align="center"></a>
+	<a href="https://react.dev/"><img src="https://repository-images.githubusercontent.com/37153337/9d0a6780-394a-11eb-9fd1-6296a684b124" alt="React"   width="300" align="center"></a>
 <p>
 
 
 ## 📃 Project Description
 
 This is a Rental A Car Application where people can book cars or providing their cars for booking. There are two user roles - dealers and renters. 
-The renters are these who are able to rent the cars and the dealers are these who providing the cars.The app is built in order to help the both users 
-- dealers and renters to do CRUD operations related to cars and bookings. The applicatication has a public part(accessible without authentication).
+The renters are these who are able to rent the cars and the dealers are these who providing the cars.The app is built in order to help the both users - 
+dealers and renters to do CRUD operations related to cars and bookings. The applicatication has a public part(accessible without authentication).
 This is the home page and the catalog, as well as the details for a certain car and the forms for register and login. The application has also a private part
 (available for registered users only). When the user is logged in as a dealer, he can see the cars which were added by himself, he can edit or delete them or 
 he can add a new car. The user who is logged in as a renter can see his own bookings, he can cancel a reservation only if the date is after today and also he can book a car.
