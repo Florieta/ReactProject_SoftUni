@@ -1,6 +1,6 @@
-/*import { useAuthContext } from '../../hooks/useAuthContext';
-import * as ratingService from '../../services/ratingService';
-import { toast } from "react-toastify";*/
+import { useAuthContext } from '../../hooks/useAuthContext';
+import * as ratingService from '../../services/ratingServices';
+import { toast } from "react-toastify";
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
@@ -9,19 +9,19 @@ import { useState} from "react";
 
 const Rate = ({car}) => {
     const [rating, setRating] = useState(0);
-   /* const { user } = useAuthContext();*/
+   const { user } = useAuthContext();
 
         const onVoteHandler = (newValue) => {
             const rate = newValue;
             setRating(rate);
-            /*const carId = car.id;
+            const carId = car.id;
             const renterId = user.user.renterId;
 
             ratingService.create({ rate, carId, renterId })
             .then(() => {
                 toast.success("You successfully rated!", {autoClose: 1000})
            
-        })*/};
+        })};
 
     return (
         <div >
