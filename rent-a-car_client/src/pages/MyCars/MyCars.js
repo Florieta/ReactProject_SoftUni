@@ -12,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useMutation } from "@tanstack/react-query";
 import withRoot from '../../withRoot';
-import FormButton from '../../components/form/FormButton';
+import FormButton from '../../components/Common/FormButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 

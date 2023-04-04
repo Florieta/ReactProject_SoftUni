@@ -1,18 +1,18 @@
-import ProductHero from "../../components/ProductHero/ProdustHero";
 import * as React from 'react';
+import HomeCard from "../../components/HomeElements/HomeCard";
+import HomeValues from "../../components/HomeElements/HomeValues";
+import HomeCategories from "../../components/HomeElements/HomeCategories";
+import HomeHowItWorks from "../../components/HomeElements/HomeHowItWorks";
 import withRoot from "../../withRoot";
-import ProductValues from "../../components/ProductHero/ProductValues";
-import ProductCategories from "../../components/ProductHero/ProductCategories";
-import ProductHowItWorks from "../../components/ProductHero/ProductHowItWorks";
 
 const Home = () => {
     return (
         <div>
 
-            <ProductHero />
-            <ProductValues />
-            <ProductCategories />
-            <ProductHowItWorks />
+            <HomeCard />
+            <HomeValues />
+            <HomeCategories />
+            <HomeHowItWorks />
 
         </div>
     )

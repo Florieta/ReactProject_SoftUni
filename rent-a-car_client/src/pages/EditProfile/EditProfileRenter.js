@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import * as renterService from "../../services/renterService.js"
-import FormButton from '../../components/form/FormButton'
+import FormButton from '../../components/Common/FormButton'
 import withRoot from '../../withRoot';
 
 const EditProfileRenter = () => {

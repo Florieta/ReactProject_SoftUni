@@ -30,11 +30,7 @@ function RFTextField(props) {
 }
 
 RFTextField.propTypes = {
-  /**
-   * This prop helps users to fill forms faster, especially on mobile devices.
-   * The name can be confusing, as it's more like an autofill.
-   * You can learn more about it [following the specification](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill).
-   */
+ 
   autoComplete: PropTypes.string,
   input: PropTypes.shape({
     checked: PropTypes.bool,
@@ -46,12 +42,7 @@ RFTextField.propTypes = {
     type: PropTypes.string,
     value: PropTypes.string.isRequired,
   }).isRequired,
-  /**
-   * Props applied to the Input element.
-   * It will be a [`FilledInput`](/material-ui/api/filled-input/),
-   * [`OutlinedInput`](/material-ui/api/outlined-input/) or [`Input`](/material-ui/api/input/)
-   * component depending on the `variant` prop value.
-   */
+  
   InputProps: PropTypes.object,
   meta: PropTypes.shape({
     active: PropTypes.bool,

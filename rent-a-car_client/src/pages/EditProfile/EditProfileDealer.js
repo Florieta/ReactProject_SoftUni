@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import * as dealerService from "../../services/dealerService.js"
 import { useAuthContext } from '../../hooks/useAuthContext';
-import FormButton from '../../components/form/FormButton.js';
+import FormButton from '../../components/Common/FormButton.js';
 import withRoot from '../../withRoot.js';
 
 const EditProfileDealer = () => {

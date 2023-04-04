@@ -1,29 +1,14 @@
 import * as React from 'react';
-import { Field, Form, FormSpy } from 'react-final-form';
+import { Field, Form} from 'react-final-form';
 import Box from '@mui/material/Box';
 import Typography from './../../components/Typography/Typography'
 import AppForm from '../../components/AppForm/AppForm';
-import { email, required } from './../../components/form/validation';
-import RFTextField from './../../components/form/RFTextField'
-import FormButton from './../../components/form/FormButton';
-import FormFeedback from './../../components/form/FormFeedback';
+import RFTextField from './../../components/Common/RFTextField'
+import FormButton from './../../components/Common/FormButton';
 import withRoot from './../../withRoot';
 
 function ForgotPassword() {
   const [sent, setSent] = React.useState(false);
-
-  const validate = (values) => {
-    const errors = required(['email'], values);
-
-    if (!errors.email) {
-      const emailError = email(values.email);
-      if (emailError) {
-        errors.email = emailError;
-      }
-    }
-
-    return errors;
-  };
 
   const handleSubmit = () => {
     setSent(true);
@@ -44,7 +29,6 @@ function ForgotPassword() {
         <Form
           onSubmit={handleSubmit}
           subscription={{ submitting: true }}
-          validate={validate}
         >
           {({ handleSubmit: handleSubmit2, submitting }) => (
             <Box component="form" onSubmit={handleSubmit2} noValidate sx={{ mt: 6 }}>
@@ -60,15 +44,6 @@ function ForgotPassword() {
                 required
                 size="large"
               />
-              <FormSpy subscription={{ submitError: true }}>
-                {({ submitError }) =>
-                  submitError ? (
-                    <FormFeedback error sx={{ mt: 2 }}>
-                      {submitError}
-                    </FormFeedback>
-                  ) : null
-                }
-              </FormSpy>
               <FormButton
                 sx={{ mt: 3, mb: 2 }}
                 disabled={submitting || sent}

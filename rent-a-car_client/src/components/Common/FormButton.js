@@ -1,7 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-
-import Button from './../Button/Button'
+import Button from '../Button/Button'
 import defer from './defer';
 
 function FormButton(props) {
@@ -17,9 +16,6 @@ function FormButton(props) {
 }
 
 FormButton.propTypes = {
-  /**
-   * If `true`, the component is disabled.
-   */
   disabled: PropTypes.bool,
   mounted: PropTypes.bool,
 };

@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '../../components/Typography/Typography';
 import AppForm from '../../components/AppForm/AppForm';
-import FormButton from '../../components/form/FormButton';
+import FormButton from '../../components/Common/FormButton';
 import withRoot from './../../withRoot';
 import { AuthContext } from "../../context/AuthContext";
 import * as authService from "../../services/authService";

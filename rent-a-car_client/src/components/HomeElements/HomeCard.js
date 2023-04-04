@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Button from '../Button/Button';
 import Typography from '../Typography/Typography';
-import ProductHeroLayout from './ProductHeroLayout';
+import HomeLayout from './HomeLayout';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useContext } from "react";
@@ -18,14 +18,13 @@ export default function ProductHero() {
 
   }
   return (
-    <ProductHeroLayout
+    <HomeLayout
       sxBackground={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundColor: '#7fc7d9', // Average color of the background image.
+        backgroundColor: '#7fc7d9', 
         backgroundPosition: 'center',
       }}
     >
-      {/* Increase the network loading priority of the background image. */}
       <img
         style={{ display: 'none' }}
         src={backgroundImage}
@@ -57,6 +56,6 @@ export default function ProductHero() {
       <Typography variant="body2" color="inherit" sx={{ mt: 2 }}>
         Discover the experience
       </Typography>
-    </ProductHeroLayout>
+    </HomeLayout>
   );
 }
