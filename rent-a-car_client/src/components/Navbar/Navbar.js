@@ -57,7 +57,7 @@ function Navigation() {
                 </NavDropdown></Nav>}
           </Nav>
           {user.token && <Nav><Navbar.Brand>Welcome, {user.user.userName}!</Navbar.Brand>
-            <Avatar sx={{ bgcolor: pink[500], mr:8 }} >{user.user.userName[0]}</Avatar>
+            <Avatar sx={{ bgcolor: pink[500], mr:8 }} >{user.user.firstName[0]}{user.user.lastName[0]}</Avatar>
             <Nav.Link href="/logout" onClick={onClick}>Sign out</Nav.Link>
           </Nav>
           }
@@ -69,6 +69,3 @@ function Navigation() {
 }
 
 export default Navigation;
-
-/* <Avatar alt={user.user.userName} src={profile_image} />
-import profile_image from '../../assets/profile_image.jpg'*/
