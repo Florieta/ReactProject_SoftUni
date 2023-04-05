@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Typography from "../../components/Typography/Typography";
 import withRoot from "../../withRoot";
 import usePagination from "../../hooks/usePagination";
-import MyPaginator from "../../components/Pagination/Pagination";
+import MyPaginator from "../../components/Pagination/MyPaginator";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { useState } from "react";
 

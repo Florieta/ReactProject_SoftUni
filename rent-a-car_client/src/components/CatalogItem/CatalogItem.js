@@ -30,7 +30,7 @@ const CatalogItem = ({ car }) => {
             .then(ratingResult => {
                 setRatings(ratingResult);
             });
-    }, []);
+    }, [car.id]);
 
     let averageRating = ratingCalculator(ratings.map(x => x.rate));
 
