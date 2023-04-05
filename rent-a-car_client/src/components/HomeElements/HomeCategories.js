@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -87,6 +88,12 @@ const images = [
 ];
 
 export default function ProductCategories() {
+  const navigate = useNavigate();
+  const onClickHandler = (e) => {
+    e.preventDefault()
+    navigate('/Catalog')
+  }
+
   return (
     <Container component="section" sx={{ mt: 8, mb: 4 }}>
       <Typography variant="h4" marked="center" align="center" component="h2">
@@ -99,6 +106,7 @@ export default function ProductCategories() {
             style={{
               width: image.width,
             }}
+
           >
             <Box
               sx={{
@@ -125,6 +133,7 @@ export default function ProductCategories() {
                 justifyContent: 'center',
                 color: 'common.white',
               }}
+              onClick={onClickHandler}
             >
               <Typography
                 component="h3"
