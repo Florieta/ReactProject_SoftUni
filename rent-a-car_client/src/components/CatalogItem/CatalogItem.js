@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Button from '../Button/Button';
@@ -59,8 +60,8 @@ const CatalogItem = ({ car }) => {
                     color="secondary"
                     size="small"
                     variant="contained"
-                    component="a"
-                    href={`/catalog/${car.id}`}
+                    component={Link}
+                    to={`/catalog/${car.id}`}
                     sx={{ mt: 4 }}
                 >
                     Details
