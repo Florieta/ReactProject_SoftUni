@@ -1,26 +1,31 @@
-import CatalogItem from "../../components/CatalogItem/CatalogItem";
-import { CircularProgress, Alert } from '@mui/material'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
+import { CircularProgress, Alert } from '@mui/material'
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from "../../components/Typography/Typography";
-import withRoot from "../../withRoot";
 import usePagination from "../../hooks/usePagination";
 import MyPaginator from "../../components/Pagination/MyPaginator";
 import SearchBar from "../../components/SearchBar/SearchBar";
-import { useState } from "react";
+import CatalogItem from "../../components/CatalogItem/CatalogItem";
+import withRoot from "../../withRoot";
 
 const ITEMS_PER_PAGE = 6;
 
 const Catalog = () => {
     const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
     
-
     const getCars = () => {
         return fetch('https://localhost:7016/api/Car')
             .then(res => res.json())
+            .catch(() => {
+                toast.error("Something went wrong!")
+                navigate('/error');
+            });
     }
 
     const {

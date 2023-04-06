@@ -105,6 +105,7 @@ const EditProfileRenter = () => {
                 toast.success("You successfully updated your profile!", { autoClose: 1000 })
                 navigate('/my-profile');
             }).catch(() => {
+                toast.error("Something went wrong!")
                 navigate('/error');
             });
     };

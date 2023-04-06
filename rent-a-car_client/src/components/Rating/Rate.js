@@ -35,7 +35,8 @@ const Rate = ({car}) => {
                     <Rating 
                         name="simple-controlled"
                         value={rating}
-                        onChange={(event, newValue) => onVoteHandler(newValue)} />
+                        onChange={(event, newValue) => onVoteHandler(newValue)} 
+                        aria-label="Rate"/>
                 </Box>
                 : <Box
                     sx={{

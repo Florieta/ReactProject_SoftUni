@@ -10,11 +10,11 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '../../components/Typography/Typography'
-import withRoot from './../../withRoot';
 import FormButton from './../../components/Common/FormButton';
 import AppForm from './../../components/AppForm/AppForm';
 import { AuthContext } from '../../context/AuthContext';
 import * as authService from '../../services/authService';
+import withRoot from './../../withRoot';
 
 function SignUpRenter() {
    const { userRegister } = useContext(AuthContext);

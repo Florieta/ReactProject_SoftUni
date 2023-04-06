@@ -10,16 +10,16 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '../../components/Typography/Typography'
-import withRoot from './../../withRoot';
 import FormButton from './../../components/Common/FormButton';
 import AppForm from './../../components/AppForm/AppForm';
 import { AuthContext } from '../../context/AuthContext';
 import * as authService from '../../services/authService';
+import withRoot from './../../withRoot';
 
 function SignUpDealer() {
-
   const { userRegister } = useContext(AuthContext);
   const navigate = useNavigate();
+
   const [formErrors, setFormErros] = useState({
     userName: '',
     email: '',
@@ -51,7 +51,10 @@ function SignUpDealer() {
         userRegister(authData);
         toast.success("You were successfully registered!", { autoClose: 1000, });
         navigate('/login');
-      })
+      }).catch(() => {
+        toast.error("Something went wrong!")
+        navigate('/error');
+      });
   }
 
   const formValidate = (e) => {
@@ -109,7 +112,7 @@ function SignUpDealer() {
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              
+
               <TextField
                 autoComplete="given-name"
                 name="firstName"
@@ -123,10 +126,10 @@ function SignUpDealer() {
               <span
                 hidden={
                   formErrors?.firstName
-                    ? false 
-                    : true 
+                    ? false
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.firstName}
               </span>
             </Grid>
@@ -143,10 +146,10 @@ function SignUpDealer() {
               <span
                 hidden={
                   formErrors?.lastName
-                    ? false 
-                    : true 
+                    ? false
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.lastName}
               </span>
             </Grid>
@@ -160,13 +163,13 @@ function SignUpDealer() {
                 autoComplete="Username"
                 onBlur={formValidate}
               />
-               <span
+              <span
                 hidden={
                   formErrors?.userName
-                    ? false 
-                    : true 
+                    ? false
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.userName}
               </span>
             </Grid>
@@ -180,13 +183,13 @@ function SignUpDealer() {
                 autoComplete="Phone number"
                 onBlur={formValidate}
               />
-               <span
+              <span
                 hidden={
                   formErrors?.phoneNumber
-                    ? false 
-                    : true 
+                    ? false
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.phoneNumber}
               </span>
             </Grid>
@@ -200,13 +203,13 @@ function SignUpDealer() {
                 autoComplete="email"
                 onBlur={formValidate}
               />
-               <span
+              <span
                 hidden={
                   formErrors?.email
-                    ? false 
-                    : true 
+                    ? false
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.email}
               </span>
             </Grid>
@@ -232,24 +235,24 @@ function SignUpDealer() {
                 autoComplete="Company name"
                 onBlur={formValidate}
               />
-               <span
+              <span
                 hidden={
                   formErrors?.companyName
-                    ? false 
-                    : true 
+                    ? false
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.companyName}
               </span>
             </Grid>
             <Grid item xs={12} sm={6}>
-            <span
+              <span
                 hidden={
                   formErrors?.companyNumber
                     ? false
-                    : true 
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.companyNumber}
               </span>
               <TextField
@@ -261,7 +264,7 @@ function SignUpDealer() {
                 autoComplete="Company number"
                 onBlur={formValidate}
               />
-               
+
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -273,13 +276,13 @@ function SignUpDealer() {
                 autoComplete="Address"
                 onBlur={formValidate}
               />
-               <span
+              <span
                 hidden={
                   formErrors?.address
-                    ? false 
-                    : true 
+                    ? false
+                    : true
                 }
-                style={{ color: 'red', fontSize: '10px'}}>
+                style={{ color: 'red', fontSize: '10px' }}>
                 {formErrors.address}
               </span>
             </Grid>

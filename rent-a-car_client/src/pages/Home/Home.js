@@ -8,14 +8,12 @@ import withRoot from "../../withRoot";
 const Home = () => {
     return (
         <div>
-
             <HomeCard />
             <HomeValues />
             <HomeCategories />
             <HomeHowItWorks />
-
         </div>
     )
-}
+};
 
 export default withRoot(Home);

@@ -56,6 +56,10 @@ const CreateBooking = () => {
     const getCarById = () => {
         return fetch(`https://localhost:7016/api/Car/${carId}`)
             .then(res => res.json())
+            .catch(() => {
+                toast.error("Something went wrong!")
+                navigate('/error');
+            });
     }
 
     const {

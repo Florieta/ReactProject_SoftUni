@@ -10,9 +10,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from '../../components/Typography/Typography';
 import AppForm from '../../components/AppForm/AppForm';
 import FormButton from '../../components/Common/FormButton';
-import withRoot from './../../withRoot';
 import { AuthContext } from "../../context/AuthContext";
 import * as authService from "../../services/authService";
+import withRoot from './../../withRoot';
 
 function SignIn() {
   const { userLogin } = useContext(AuthContext);
@@ -30,10 +30,10 @@ function SignIn() {
                 userLogin(authData);
                 toast.success("You were successfully logged in!", {autoClose: 1000})
                 navigate('/');
-            })
-            .catch(() => {
-                 navigate('/error');
-            });
+            }).catch(() => {
+              toast.error("Something went wrong!")
+              navigate('/error');
+          });
   };
 
   return (

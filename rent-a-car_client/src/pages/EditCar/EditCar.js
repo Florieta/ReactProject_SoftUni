@@ -115,6 +115,7 @@ const EditCar = () => {
             label: 'No',
         },
     ];
+    
     useEffect(() => {
         carService.getById(carId)
             .then((car) => {
@@ -128,6 +129,10 @@ const EditCar = () => {
     const getCategories = () => {
         return fetch('https://localhost:7016/api/Category')
             .then(res => res.json())
+            .catch(() => {
+                toast.error("Something went wrong!")
+                navigate('/error');
+            });
     }
 
 

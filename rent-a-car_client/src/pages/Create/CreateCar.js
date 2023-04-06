@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
@@ -134,6 +133,10 @@ const CreateCar = () => {
     const getCategories = () => {
         return fetch('https://localhost:7016/api/Category')
             .then(res => res.json())
+            .catch(() => {
+                toast.error("Something went wrong!")
+                navigate('/error');
+            });
     }
 
     const { isLoading, isError, data, isFetching } = useQuery({
@@ -155,20 +158,29 @@ const CreateCar = () => {
         if (!file) {
             return;
         }
-        console.log(file.name)
         const url = 'https://localhost:7016/api/BlobStorage';
         const formData = new FormData();
         formData.append('imageFile', file);
 
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
+        const options = {
+            method: 'POST',
+            body: formData,
         };
-        axios.post(url, formData, config).then(() => {
-            toast.success("The photo was uploaded successfully!", { autoClose: 900 })
-        });
+    
+        fetch(url, options)
+            .then(response => {
+                if (response.ok) {
+                    toast.success("The photo was uploaded successfully!", { autoClose: 900 })
+                } else {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+            })
+            .catch(() => {
+                toast.error("Something went wrong!")
+                navigate('/error');
+            });
     }
+
     const boolInputChange = (e) => {
         const { name, value } = e.target;
         if (value === false) {
@@ -219,7 +231,10 @@ const CreateCar = () => {
             .then(() => {
                 toast.success("You successfully added a car!")
                 navigate('/my-cars');
-            }).catch((error) => console.log(error))
+            }).catch(() => {
+                toast.error("Something went wrong!")
+                navigate('/error');
+            });
     };
 
     return (
