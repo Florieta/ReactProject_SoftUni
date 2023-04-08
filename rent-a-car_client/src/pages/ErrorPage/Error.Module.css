@@ -1,0 +1,16 @@
+.error-page {
+    color: rgb(76, 69, 69);
+    text-align: center;
+    text-decoration-style: solid;
+}
+
+.title, .image {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.link {
+    margin-bottom: 30px;
+    text-decoration: none;
+}

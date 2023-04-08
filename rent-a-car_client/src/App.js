@@ -19,12 +19,13 @@ import MyCars from './pages/MyCars/MyCars';
 import MyBookings from './pages/MyBookings/MyBookings';
 import BookingForm from './pages/BookingForm/BookingForm';
 import EditCar from './pages/EditCar/EditCar';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 function App() {
   return (
     <AuthProvider>
       <>
-        <Navigation />
+      <Navigation />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<SignIn />} />
@@ -53,18 +54,19 @@ function App() {
             <PrivateRoute>
               <MyCars />
             </PrivateRoute>)} />
-            <Route path="/edit/:carId" element={(
-                <PrivateRoute>
-                  <EditCar />
-                </PrivateRoute>)} />
-            <Route path="/my-bookings" element={(
+          <Route path="/edit/:carId" element={(
+            <PrivateRoute>
+              <EditCar />
+            </PrivateRoute>)} />
+          <Route path="/my-bookings" element={(
             <PrivateRoute>
               <MyBookings />
             </PrivateRoute>)} />
-            <Route path="/booking/:carId" element={(
+          <Route path="/booking/:carId" element={(
             <PrivateRoute>
               <BookingForm />
             </PrivateRoute>)} />
+            <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
       </>
